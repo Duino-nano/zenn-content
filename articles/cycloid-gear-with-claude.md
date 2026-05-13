@@ -22,6 +22,10 @@ ClaudeにはMCP（Model Context Protocol）という仕組みを使ってFusion 
 
 つまり「設計してほしい」と伝えると、ClaudeがFusion 360を開いてモデルを作り始めます。
 
+連携方法はこちらの動画を参考にしました。
+
+https://youtu.be/BUEP1rIznQg?si=cVzOX_XipYLqRj7b
+
 ---
 
 ## 最初はうまくいかなかった

@@ -1,5 +1,5 @@
 ---
-title: "設計が難しすぎたので、ClaudeとFusion 360でサイクロイド歯車を作った"
+title: "ClaudeとFusion 360でサイクロイド歯車を作ってみた"
 emoji: "⚙️"
 type: "idea"
 topics: ["fusion360", "python", "機械設計", "claude", "AI"]

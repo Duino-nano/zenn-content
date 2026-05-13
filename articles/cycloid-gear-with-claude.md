@@ -51,7 +51,7 @@ Claudeはすぐに設計パラメータを計算し、ギヤ比1:20を実現す�
 
 パラメータが決まるとそのままFusion 360にアクセスして、4つのコンポーネントとスケッチを自動で作成してくれました。
 
-![Claudeとの設計会話とFusion 360のスケッチ](/images/cycloid-gear-with-claude/claude-design.png)
+![Claudeとの設計会話とFusion 360のスケッチ](/images/cycloid-gear-with-claude/claude-design.png =800x)
 
 - **Ring_Housing** — 21本のリングピンを等配した外輪
 - **Cycloid_Disc** — 20ローブのサイクロイド曲線と伝達穴
@@ -78,11 +78,11 @@ Claudeから「UIダイアログ付きアドインか、スクリプト形式か
 
 翌日にはアドインが完成しました。
 
-![作成パネルへの追加](/images/cycloid-gear-with-claude/panel.png)
+![作成パネルへの追加](/images/cycloid-gear-with-claude/panel.png =300x)
 
 「作成」パネルに **Cycloid Gear** ボタンが追加されます。クリックするとパラメータ入力ダイアログが開きます。
 
-![パラメータ入力ダイアログ](/images/cycloid-gear-with-claude/dialog.png)
+![パラメータ入力ダイアログ](/images/cycloid-gear-with-claude/dialog.png =350x)
 
 基本パラメータだけ常時表示で、出力シャフト・カムシャフト・詳細設定は折りたたみにまとめてくれました。リングピン数を変えるとギヤ比がリアルタイムで更新されます。OKを押すと4つのコンポーネントとスケッチが自動生成されます。
 
@@ -96,13 +96,13 @@ https://github.com/Duino-nano/fusion360-cycloid-gear
 
 生成したモデルをそのまま3Dプリントしました。
 
-![Cycloid Disc単体](/images/cycloid-gear-with-claude/disc.png)
+![Cycloid Disc単体](/images/cycloid-gear-with-claude/disc.png =600x)
 
-![Output Shaft単体](/images/cycloid-gear-with-claude/output-shaft.png)
+![Output Shaft単体](/images/cycloid-gear-with-claude/output-shaft.png =600x)
 
-![Cam Shaft単体](/images/cycloid-gear-with-claude/cam-shaft.png)
+![Cam Shaft単体](/images/cycloid-gear-with-claude/cam-shaft.png =600x)
 
-![4コンポーネント組み合わせ](/images/cycloid-gear-with-claude/assembly.png)
+![4コンポーネント組み合わせ](/images/cycloid-gear-with-claude/assembly.png =600x)
 
 ハンドルを付けて手で回してみました。
 

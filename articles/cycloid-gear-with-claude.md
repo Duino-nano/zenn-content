@@ -4,7 +4,6 @@ emoji: "⚙️"
 type: "idea"
 topics: ["fusion360", "python", "機械設計", "claude", "AI"]
 published: true
-price: 200
 ---
 
 ## サイクロイド減速機とは
@@ -137,13 +136,11 @@ https://amzn.to/4tDCIRb
 
 ---
 
-## ソースコード
+## アドインを使いたい方へ
 
-Fusion 360アドインのソースコードはこちらです。
+今回作成したFusion 360アドインは以下の有料記事で配布しています。GitHubリンクとインストール手順をまとめています。
 
-https://github.com/Duino-nano/fusion360-cycloid-gear
-
-インストール方法はリポジトリのREADMEに記載しています。
+https://zenn.dev/duino_nano/articles/cycloid-reducer-addin
 
 ---
 

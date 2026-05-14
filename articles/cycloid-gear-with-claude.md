@@ -95,7 +95,9 @@ Claudeから「UIダイアログ付きアドインか、スクリプト形式か
 
 ## 3Dプリントして動かしてみた
 
-生成したモデルをそのまま3Dプリントしました。
+生成したモデルをそのまま3Dプリントしました。フィラメントはこちらを使っています。
+
+https://amzn.to/4ua2Cgy
 
 ![Cycloid Disc単体](/images/cycloid-gear-with-claude/disc.png =600x)
 
@@ -104,6 +106,10 @@ Claudeから「UIダイアログ付きアドインか、スクリプト形式か
 ![Cam Shaft単体](/images/cycloid-gear-with-claude/cam-shaft.png =600x)
 
 ![4コンポーネント組み合わせ](/images/cycloid-gear-with-claude/assembly.png =600x)
+
+組み立て時の潤滑にはグリスの代わりにワセリンを塗っています。手に付いても保湿になるので気にせず使えます笑
+
+https://amzn.to/4tDCIRb
 
 ハンドルを付けて手で回してみました。
 

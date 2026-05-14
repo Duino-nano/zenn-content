@@ -4,6 +4,7 @@ emoji: "⚙️"
 type: "idea"
 topics: ["fusion360", "python", "機械設計", "claude", "AI"]
 published: false
+price: 200
 ---
 
 ## きっかけ
@@ -90,9 +91,7 @@ Claudeから「UIダイアログ付きアドインか、スクリプト形式か
 
 基本パラメータだけ常時表示で、出力シャフト・カムシャフト・詳細設定は折りたたみにまとめてくれました。リングピン数を変えるとギヤ比がリアルタイムで更新されます。OKを押すと4つのコンポーネントとスケッチが自動生成されます。
 
-コードはGitHubに公開しています。
-
-https://github.com/Duino-nano/fusion360-cycloid-gear
+ソースコードは記事の最後に掲載しています。
 
 ---
 
@@ -116,4 +115,14 @@ https://github.com/Duino-nano/fusion360-cycloid-gear
 
 ---
 
-*ソースコード: https://github.com/Duino-nano/fusion360-cycloid-gear*
+## ソースコード
+
+Fusion 360アドインのソースコードはこちらです。
+
+https://github.com/Duino-nano/fusion360-cycloid-gear
+
+インストール方法はリポジトリのREADMEに記載しています。
+
+---
+
+*本記事にはAmazonアソシエイトリンクが含まれる場合があります。*

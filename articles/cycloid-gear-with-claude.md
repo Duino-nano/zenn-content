@@ -3,7 +3,7 @@ title: "ClaudeとFusion 360でサイクロイド減速機を作ってみた"
 emoji: "⚙️"
 type: "idea"
 topics: ["fusion360", "python", "機械設計", "claude", "AI"]
-published: false
+published: true
 price: 200
 ---
 

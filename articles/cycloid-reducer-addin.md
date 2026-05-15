@@ -3,7 +3,7 @@ title: "【Fusion 360アドイン】サイクロイド減速機ジェネレー�
 emoji: "🔧"
 type: "tech"
 topics: ["fusion360", "python", "機械設計"]
-published: true
+published: false
 ---
 
 パラメータを入力するだけでサイクロイド減速機のスケッチを自動生成するFusion 360アドインです。

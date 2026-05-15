@@ -104,7 +104,7 @@ Claudeから「UIダイアログ付きアドインか、スクリプト形式か
 
 基本パラメータだけ常時表示で、出力シャフト・カムシャフト・詳細設定は折りたたみにまとめてくれました。リングピン数を変えるとギヤ比がリアルタイムで更新されます。OKを押すと4つのコンポーネントとスケッチが自動生成されます。
 
-ソースコードは記事の最後に掲載しています。
+ソースコードはGitHubで公開しています。
 
 ---
 
@@ -138,9 +138,27 @@ https://amzn.to/4tDCIRb
 
 ## アドインを使いたい方へ
 
-今回作成したFusion 360アドインはこちらの記事で配布しています。GitHubリンクとインストール手順をまとめています。
+ソースコードはGitHubで公開しています。
 
-https://zenn.dev/duino_nano/articles/cycloid-reducer-addin
+https://github.com/Duino-nano/fusion360-cycloid-gear
+
+### インストール手順
+
+1. 上記リポジトリから `CycloidGearGenerator` フォルダをダウンロード
+2. 以下のパスに配置する
+
+**macOS:**
+```
+~/Library/Application Support/Autodesk/Autodesk Fusion 360/API/AddIns/
+```
+
+**Windows:**
+```
+%APPDATA%\Autodesk\Autodesk Fusion 360\API\AddIns\
+```
+
+3. Fusion 360を起動して `Shift+S` →「アドイン」タブ →「CycloidGearGenerator」を選択→「実行」
+4. ソリッドワークスペースの「作成」パネルに **Cycloid Gear** ボタンが追加される
 
 ---
 

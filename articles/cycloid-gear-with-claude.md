@@ -138,7 +138,7 @@ https://amzn.to/4tDCIRb
 
 ## アドインを使いたい方へ
 
-今回作成したFusion 360アドインは以下の有料記事で配布しています。GitHubリンクとインストール手順をまとめています。
+今回作成したFusion 360アドインはこちらの記事で配布しています。GitHubリンクとインストール手順をまとめています。
 
 https://zenn.dev/duino_nano/articles/cycloid-reducer-addin
 

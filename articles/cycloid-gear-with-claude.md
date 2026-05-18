@@ -138,27 +138,9 @@ https://amzn.to/4tDCIRb
 
 ## アドインを使いたい方へ
 
-ソースコードはGitHubで公開しています。
+今回作成したFusion 360アドインはnoteで配布しています（200円）。zipファイルとインストール手順が含まれています。
 
-https://github.com/Duino-nano/fusion360-cycloid-gear
-
-### インストール手順
-
-1. 上記リポジトリから `CycloidGearGenerator` フォルダをダウンロード
-2. 以下のパスに配置する
-
-**macOS:**
-```
-~/Library/Application Support/Autodesk/Autodesk Fusion 360/API/AddIns/
-```
-
-**Windows:**
-```
-%APPDATA%\Autodesk\Autodesk Fusion 360\API\AddIns\
-```
-
-3. Fusion 360を起動して `Shift+S` →「アドイン」タブ →「CycloidGearGenerator」を選択→「実行」
-4. ソリッドワークスペースの「作成」パネルに **Cycloid Gear** ボタンが追加される
+https://note.com/TODO_REPLACE_WITH_NOTE_URL
 
 ### パラメータ一覧
 

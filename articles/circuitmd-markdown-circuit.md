@@ -48,18 +48,20 @@ GPIO ──[R1 1kΩ]──B  Q1（2N2222）
 
 車輪の再発明を避けるため既存ツールも一通り調べましたが、「Markdownフェンス＋リアルタイムプレビュー＋回路図」を満たすものはありませんでした。
 
-| ツール | 惜しかった点 |
-|---|---|
-| [schemdraw-markdown](https://github.com/engineerjoe440/schemdraw-markdown) | 発想は同じだがMkDocs等の静的ビルド専用。リアルタイム性なし |
-| Markdown Preview Enhanced | 多種の図に対応するが回路図記法が無い |
-| KiCanvas | KiCadで描いた図の埋め込み用（テキストで書けない） |
-| tscircuit | React前提でMarkdown統合ではない |
+| ツール | ライセンス | 直近更新※ | スタック | 見送った理由 |
+|---|---|---|---|---|
+| [schemdraw-markdown](https://github.com/engineerjoe440/schemdraw-markdown) | MIT | 2022年で停止 | Python | 発想は同じだがMkDocs等の静的ビルド専用でリアルタイム性なし。メンテも止まっている |
+| [Markdown Preview Enhanced](https://github.com/shd101wyy/vscode-markdown-preview-enhanced) | NCSA | 2026-07（活発） | TypeScript | 多種の図に対応するが回路図記法が無い。コードチャンク実行で無理やり描く形になり体験が重い |
+| [KiCanvas](https://github.com/theacodes/kicanvas) | MIT | 2026-04（活発） | TypeScript | KiCadで描いた図をWebに埋め込むビューア。「テキストで書く」用途ではない |
+| [tscircuit](https://github.com/tscircuit/tscircuit) | MIT | 2026-07（非常に活発） | TypeScript + React | Reactコンポーネントで回路を書く別パラダイム。Markdownフェンス統合ではなく、既存mdワークフローに載らない |
+
+※直近更新は2026年7月末時点で各リポジトリのpush日時を確認したもの。
 
 部品はぜんぶ既存にある。無いのは組み合わせた完成品だけ。ということで、接着部分を自作することにしました。名前は **circuitmd** です。
 
 https://github.com/Duino-nano/circuitmd
 
-描画エンジンにはPythonの回路図ライブラリ[schemdraw](https://schemdraw.readthedocs.io/)を採用し、その上に2つの層を被せました。**VSCode拡張**（markdown-itプラグインとしてフェンスを検出→SVGをプレビューHTMLに直接インライン埋め込み。1ブロック約50msなので体感はMermaid）と、**CLI**（SVGファイル生成＋画像リンク自動挿入。SVGをコミットすればGitHubでも図が表示される）です。
+描画エンジンにはPythonの回路図ライブラリ[schemdraw](https://schemdraw.readthedocs.io/)を採用し、その上に2つの層を被せました。**VSCode拡張**（markdown-itプラグインとしてフェンスを検出→SVGをプレビューHTMLに直接インライン埋め込み。1ブロック約50ms^[Apple M5 Max・RAM 64GB・macOS 26.5、ローカルPython 3.14での実測。LED点灯回路（部品5点）の変換を5回連続実行し、初回81ms・2回目以降50ms前後（Pythonプロセス起動込み）。回路規模での変動は小さく、後述のマルチバイブレーター級（要素約30行）でも描画自体は十数ms。]なので体感はMermaid）と、**CLI**（SVGファイル生成＋画像リンク自動挿入。SVGをコミットすればGitHubでも図が表示される）です。
 
 開発中の小ネタをひとつ。拡張からPythonを呼んだら `Operation not permitted` で謎の全滅。犯人はmacOSのTCC（フォルダアクセス制限）で、VSCodeの子プロセスは「書類」フォルダのスクリプトを読めないことがあるのです。レンダラを拡張パッケージ内に同梱し、回路コードは標準入力で渡す構成にして回避しました。この「ファイルに依存しない」設計は、のちのち思わぬ形で効いてきます。
 
@@ -75,7 +77,7 @@ LED LED1 ↓
 GND
 ```
 
-![LED駆動回路](/images/circuitmd/led.png =350x)
+![circuitmdで描画したLED点灯回路の回路図](/images/circuitmd/led.png =350x)
 
 冒頭のASCIIアートで崩壊していたモータ駆動回路は、こうなります。
 
@@ -94,7 +96,7 @@ VDD 5V @M.end
 
 `NPN Q1` と書くと `Q1` が変数になり、`@Q1.base` のように端子へ接続できます。これがプレビューでこうなります。
 
-![NPNモータ駆動回路](/images/circuitmd/motor.png =400x)
+![circuitmdで描画したNPNトランジスタによるモータ駆動回路の回路図（還流ダイオード付き）](/images/circuitmd/motor.png =400x)
 
 ズレた縦線を目で追う必要はもうありません。トランジスタの3端子も、還流ダイオードの向きも、誰が見ても一意に読めます。
 
@@ -111,13 +113,17 @@ VDD 3.3V
 GND
 ```
 
-![GPIOプルアップ回路](/images/circuitmd/pullup.png =300x)
+![circuitmdで描画したGPIOプルアップ回路の回路図](/images/circuitmd/pullup.png =300x)
+
+記法の全リスト（部品名の一覧・`@`接続・`分岐`／`合流`・各オプション）は[リポジトリのREADME「記法リファレンス」](https://github.com/Duino-nano/circuitmd#%E8%A8%98%E6%B3%95%E3%83%AA%E3%83%95%E3%82%A1%E3%83%AC%E3%83%B3%E3%82%B9)にまとめてあります。
 
 DSLはあくまで「schemdraw行への1対1翻訳」の薄い層なので、表現力が必要な箇所は素のschemdraw記法（Python）と行単位で混在できます。非安定マルチバイブレーターくらいの回路になると混在スタイルの出番です。ASCIIアートでは絶対に無理だったレベルの図が出ます。
 
-![非安定マルチバイブレーター](/images/circuitmd/multivibrator.png =500x)
+![circuitmdで描画した非安定マルチバイブレーター回路の回路図](/images/circuitmd/multivibrator.png =500x)
 
 期待していた「AIとの相性」は想像以上でした。AIへの質問の回答がそのまま正確な図になり、逆にフェンスのテキスト自体が「部品・定数・接続」の曖昧さのない記述なので、AIはドキュメントを読むだけで回路構成を誤解なく把握できます。**人間向けの図とAI向けの正確な記述が、1つのソースから出る**。これがこの仕組みの本質です。
+
+ひとつ、正確さの範囲をはっきりさせておきます。ここで言う「正確」は、**フェンスに書かれた記法どおりに描画される**という意味です。本ツールはERC（電気的ルールチェック）のような回路としての妥当性検証は行いません。AIが提案した回路そのものが正しいか——定数計算、極性、定格、保護——の確認は、従来どおり設計者の仕事です。図が綺麗に出ると回路まで正しそうに見えてしまうので、AIの回路提案を鵜呑みにしない、という原則はこのツールがあっても変わりません。
 
 めでたしめでたし——とは、なりませんでした。
 
@@ -158,23 +164,33 @@ LEDやプルアップ程度なら快適でした。ところが、DCDCコンバ�
 
 壁②③を前に、JSへのフル移植も検討しました。しかし部品記号・配置・衝突回避をすべて移植し、以後2系統を同期し続けるのは現実的ではない。採用したのは**Pyodide——Python本体のWebAssembly版——で、既存のcircuitmd.py＋schemdrawをそのままJS環境で動かす**方式です。
 
-これの何が良いって、移植が「ゼロ」なことです。描画ロジックは単一ソースのまま全環境で共有されるので、移植による微妙な描画差が原理的に発生しません。実際、WASM版とネイティブPython版のSVG出力は**バイト単位で完全一致**しました。
+これの何が良いって、移植が「ゼロ」なことです。描画ロジックは単一ソースのまま全環境で共有されるので、移植による微妙な描画差が原理的に発生しません。実際、WASM版とネイティブPython版のSVG出力は**バイト単位で完全一致**しました^[LED点灯回路（部品5点）のSVG出力をdiffで比較（1ケース）。同一のcircuitmd.py＋schemdraw 0.23を実行しており、文字幅計算まで自前実装のSVGバックエンドを使うため環境のフォントにも依存しない。構造的に差が出ない設計で、一致はその確認。]。
 
 出口は一気に増えました。
 
 **Web Playground** — ブラウザだけで書いて、即プレビュー
 
-![Playground](/images/circuitmd/playground.png)
+![circuitmd Playgroundのスクリーンショット。左のエディタに回路コード、右にレンダリングされたマルチバイブレーターの回路図](/images/circuitmd/playground.png)
 
 インストール不要。エディタ＋ライブプレビュー＋SVG/PNGダウンロード。回路コードをbase64でURLに埋める共有リンクも作れるので、**コード実行できないAIチャット（claude.aiなど）でも「タップすると回路図が開くリンク」を返せる**ようになりました。壁②の完全な解決です。
 
 https://duino-nano.github.io/circuitmd/
 
-**VSCode拡張のPython不要化** — 拡張にPyodideとschemdraw wheelを同梱しました（vsixは5.7MB）。配られたvsixを入れるだけで、Pythonの無いPCでもプレビューが動きます。懸念していたWASMの起動時間は、ローカルディスクからの読み込みなら**0.6秒**と杞憂でした。
+**VSCode拡張のPython不要化** — 拡張にPyodideとschemdraw wheelを同梱しました（vsixは5.7MB）。配られたvsixを入れるだけで、Pythonの無いPCでもプレビューが動きます。懸念していたWASMの起動時間は、ローカルディスクからの読み込みなら**0.6秒**と杞憂でした^[Apple M5 Max・macOS 26.5のVSCode拡張ホスト（Node）で3回計測し607／611／624ms。起動後の描画はLED回路（部品5点）で3〜4ms、部品約30行のマルチバイブレーターで10〜12ms（各3回計測）。起動はVSCodeセッション中1回だけ。]。
 
-**GitHub Actions自動レンダリング** — 壁③はCIで解決しました。リポジトリにワークフローを1ファイル置くと（中身は `uses: Duino-nano/circuitmd@main` だけ）、**GitHubのWebエディタでフェンスを編集→コミットするだけで、Actionがクラウドでrenderを実行し、SVGとリンクを自動コミット**します。実測では編集から14秒で図が更新されました。renderが最初から冪等（内容ハッシュでSVGを管理し、差分がなければ何もしない）だったおかげで、botのコミットが無限ループしない設計がそのまま効いています。
+**GitHub Actions自動レンダリング** — 壁③はCIで解決しました。リポジトリにワークフローを1ファイル置くと（中身は `uses: Duino-nano/circuitmd@main` だけ）、**GitHubのWebエディタでフェンスを編集→コミットするだけで、Actionがクラウドでrenderを実行し、SVGとリンクを自動コミット**します。実測では、編集のコミットからbotのSVGコミット完了まで**11秒**でした^[GitHubホステッドランナー（ubuntu-latest）。編集→自動更新のE2Eを2回試行し、いずれもコミット間隔11秒（ワークフロー全体の所要は13〜14秒）。ランナーの混雑時は待ち時間が加わります。]。renderが最初から冪等（内容ハッシュでSVGを管理し、差分がなければ何もしない）だったおかげで、botのコミットが無限ループしない設計がそのまま効いています。
 
 **AIスキル** — 仕上げに、AI自身への「取扱説明書」もリポジトリに同梱しました（`skills/circuitmd/`）。記法・レイアウト規範・「描いたら目視検証」の作業手順・環境別の図の見せ方までを定義したファイルで、Claude Codeなどに登録すると「回路図を描いて」と言うだけでこの手順が再現されます。ツールとAIの運用ノウハウをセットで配布する、という試みです。
+
+### 注意: フェンスは「実行されるコード」である
+
+ここまで便利さの話をしてきましたが、セキュリティの話も正直に書いておきます。circuitフェンスの中身は最終的にPythonの `exec()` で実行されます。つまり**renderはコード実行と同義**です。
+
+- **ローカル／VSCode／Playground**: 実行されるのは自分が書いたフェンスだけで、Playgroundはブラウザのサンドボックス内（WASM）で完結します。ただし**信頼できない他人のMarkdownを手元でrenderしない**のが原則です（READMEにも明記しています）
+- **GitHub Action**: サンプルのワークフローは `on: push`（mainブランチのみ）で動かしています。**フォークからのPull Requestでは実行されません**。逆に言えば、外部コントリビュータのPRに含まれるフェンスは「Pythonコード片のPR」なので、マージ前に通常のコードレビューと同じ基準で中身を見る必要があります。`pull_request` トリガーへの拡張はおすすめしません
+- **実行権限**: ジョブは使い捨てのランナーVM上で動き、権限は `permissions: contents: write`（リポジトリへの書き込み）のみ。Secretsは渡していません。とはいえ書き込み権限を持つ以上、**pushできる人を信頼できるリポジトリでの利用が前提**です
+
+「Markdownを編集しただけのつもりが、コードを実行している」——この構造は便利さの源泉であると同時にリスクの源泉でもあるので、導入時はチームの運用に合わせて判断してください。
 
 ## まとめ: テキストが図になるまで
 
@@ -194,5 +210,7 @@ https://duino-nano.github.io/circuitmd/
 
 - リポジトリ: https://github.com/Duino-nano/circuitmd
 - Playground: https://duino-nano.github.io/circuitmd/
+
+circuitmdは**MITライセンスの個人開発OSS**です。自分のハード開発ドキュメントで常用しているツールなので、当面はメンテナンスを続ける予定です。IssueやPRも歓迎します（PRのフェンスは前述のとおりコードとしてレビューします）。
 
 ハード開発のメモ・記事・AIとのやりとりに回路図を残したい方は、まずPlaygroundで1行書いてみてください。`抵抗 10kΩ →` ——それだけで、もうASCIIアートには戻れなくなります。

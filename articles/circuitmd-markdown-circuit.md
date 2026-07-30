@@ -3,7 +3,7 @@ title: "AIが描くASCIIアート回路図に耐えかねて、MarkdownにMermai
 emoji: "🔌"
 type: "tech"
 topics: ["markdown", "vscode", "python", "schemdraw", "電子工作"]
-published: false
+published: true
 ---
 
 ## その回路図、読めますか？
